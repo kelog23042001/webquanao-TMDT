@@ -63,4 +63,16 @@ class CategoryProductController extends Controller
         Session::put('message', 'Cập nhập thành công');
         return Redirect::to('/all-category-product');
     }
+     //End function Admin Page
+
+    // public function show_catrgory_home($category_id){
+    //     $cate_product  = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id','desc')->get();
+    //     $brand_product = DB::table('tbl_brand_product')->where('brand_status', '0')->orderBy('brand_id','desc')->get();
+    //     $color_product = DB::table('tbl_color_product')->where('color_status', '0')->orderBy('color_id','desc')->get();
+    //     $size_product  = DB::table('tbl_size_product')->where('size_status', '0')->orderBy('size_id','desc')->get();
+
+    //     $category_by_id = DB::table('tbl_product')
+    //     ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_product.category_id',$category_id)->get();
+    //     return view('pages.category.show_category', compact('cate_product', 'brand_product', 'color_product', 'size_category','category_by_id'));
+    // }
 }

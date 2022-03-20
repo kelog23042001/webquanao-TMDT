@@ -23,7 +23,9 @@ use App\Http\Controllers\SizeController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// //Danh muc san pham trang chu
+// Route::get('/danh-muc-san-pham/{category_id}',[CategoryProductController::class, 'show_category_home']);
+// Route::get('/thuong-hieu-san-pham/{brand_id}',[BrandController::class, 'show_brand_home']);
 
 Route::get('/admin',[AdminController::class, 'index']);
 Route::get('/dashboard',[AdminController::class, 'show_dashboard']);
