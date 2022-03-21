@@ -64,7 +64,7 @@
             <td>{{ $pro->product_name }}</td>
             <td>{{ $pro->product_price }}</td>
 
-            <td ><img width="100px" src="{{asset('public/uploads/product/'.$pro->product_image) }}"></td>
+            <td ><img width="100px" src="{{asset('uploads/product/'.$pro->product_image) }}"></td>
             <td>{{ $pro->category_name }}</td>
             <td>{{ $pro->brand_name }}</td>
             <td>{{ $pro->color_name }}</td>
