@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+session_start();
 class ProductController extends Controller
 {
     public function add_product(){
@@ -111,5 +112,29 @@ class ProductController extends Controller
         DB::table('tbl_product')->where('product_id',$product_id)->update($data);
         Session::put('message', 'Cập nhập sản phẩm thành công');
         return Redirect::to('/all-product');
+    }
+    //end admin page
+
+    public function details_product($product_id){
+        $category = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id','desc')->get();
+        $brand = DB::table('tbl_brand_product')->where('brand_status', '0')->orderBy('brand_id','desc')->get();
+
+        $detail_product = DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        ->where('tbl_product.product_id', $product_id)
+        ->get();
+
+        foreach($detail_product as $key=> $value){
+            $category_id = $value->category_id;
+        }
+
+        $related_product = DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        ->where('tbl_category_product.category_id', $category_id)->whereNotIn('tbl_product.product_id', [$product_id])
+        ->get();
+
+        return view('user.pages.product.show_detail', compact('category', 'brand', 'detail_product', 'related_product'));
     }
 }

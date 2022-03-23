@@ -8,6 +8,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +22,12 @@ use App\Http\Controllers\SizeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
+
 // //Danh muc san pham trang chu
-// Route::get('/danh-muc-san-pham/{category_id}',[CategoryProductController::class, 'show_category_home']);
-// Route::get('/thuong-hieu-san-pham/{brand_id}',[BrandController::class, 'show_brand_home']);
+Route::get('/danh-muc-san-pham/{category_id}',[CategoryProductController::class, 'show_category_home']);
+Route::get('/thuong-hieu-san-pham/{brand_id}',[BrandController::class, 'show_brand_home']);
+Route::get('/chi-tiet-san-pham/{product_id}',[ProductController::class, 'details_product']);
 
 Route::get('/admin',[AdminController::class, 'index']);
 Route::get('/dashboard',[AdminController::class, 'show_dashboard']);
@@ -92,3 +94,9 @@ Route::post('/save-product',[ProductController::class, 'save_product']);
 Route::get('/manage-order',[CheckoutController::class, 'manage_order']);
 
 // Route::get('/admin', 'AdminController@index');
+
+Route::get('/trang-chu', [HomeController::class, 'index']);
+
+//cart
+Route::post('/save-cart',[CartController::class, 'save_cart']);
+Route::get('/show_cart',[CartController::class, 'show_cart']);

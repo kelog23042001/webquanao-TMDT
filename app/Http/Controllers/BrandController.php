@@ -64,15 +64,16 @@ class BrandController extends Controller
 
     //End funcion admin pages
 
-    // public function show_brand_home($brand_id){
-    //     $cate_product  = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id','desc')->get();
-    //     $brand_product = DB::table('tbl_brand_product')->where('brand_status', '0')->orderBy('brand_id','desc')->get();
-    //     $color_product = DB::table('tbl_color_product')->where('color_status', '0')->orderBy('color_id','desc')->get();
-    //     $size_product  = DB::table('tbl_size_product')->where('size_status', '0')->orderBy('size_id','desc')->get();
+    public function show_brand_home($brand_id){
+        $category  = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id','desc')->get();
+        $brand = DB::table('tbl_brand_product')->where('brand_status', '0')->orderBy('brand_id','desc')->get();
 
-    //     $brand_by_id = DB::table('tbl_product')
-    //     ->join('tbl_brand_product','tbl_product.brand_id','=','tbl_brand_product.brand_id')->where('tbl_product.brand_id',$brand_id)->get();
+        $brand_name = DB::table('tbl_brand_product')->where('tbl_brand_product.brand_id', $brand_id)->limit(1)->get();
 
-    //     return view('pages.brand.show_brand', compact('cate_product', 'brand_product', 'color_product', 'size_category','brand_by_id'));
-    // }
+        $brand_by_id = DB::table('tbl_product')
+        ->join('tbl_brand_product', 'tbl_product.brand_id', '=', 'tbl_brand_product.brand_id')
+        ->where('tbl_brand_product.brand_id', $brand_id) 
+        ->get();
+        return view('user.pages.brand.show_brand', compact('category', 'brand', 'brand_by_id', 'brand_name'));
+    }
 }
